@@ -23,4 +23,4 @@ soup = BeautifulSoup(page.content, 'html.parser')
 stat_table = soup.find('tbody')
 stat_data = stat_table.find_all('tr')
 
-print(stat_data, file=open('output.txt', 'w'))
+print(stat_data, file=open(path, 'w'))
