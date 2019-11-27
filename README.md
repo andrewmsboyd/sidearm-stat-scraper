@@ -14,7 +14,7 @@ At runtime, the script will ask the user to specify a URL from which to scrape t
 
 Clone this repo, change into the cloned directory, and run the script:
 
-```python
+```bash
 python3 sidescrape.py
 ```
 
