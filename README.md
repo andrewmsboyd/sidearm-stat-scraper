@@ -14,10 +14,10 @@ At runtime, the script will ask the user to specify a URL from which to scrape t
 
 Clone this repo, change into the cloned directory, and run the script:
 
-```bash
+```python
 python3 sidescrape.py
 ```
 
 ## License
 
-This project is licensed under [GLWTPL](https://github.com/me-shaon/GLWTPL/blob/master/LICENSE). (More information available at [me-shaon/GLWTPL](https://github.com/me-shaon/GLWTPL))
+This project is licensed under [GLWTPL](https://github.com/me-shaon/GLWTPL/blob/master/LICENSE). (More information available at [Github repo me-shaon/GLWTPL](https://github.com/me-shaon/GLWTPL))
