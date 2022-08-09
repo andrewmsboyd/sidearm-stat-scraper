@@ -3,7 +3,8 @@ from bs4 import BeautifulSoup
 
 # ask the user which URL they wish to get data from
 #URL = 'https://tarletonsports.com/sports/baseball/stats/2019'
-url = input('\nEnter the URL from which to scrape the statistical data\n: ')
+#url = input('\nEnter the URL from which to scrape the statistical data\n: ')
+url = 'https://tarletonsports.com/sports/baseball/stats/2022'
 
 # ask the user to specify a directory for the output data file
 path = input(
@@ -24,5 +25,6 @@ soup = BeautifulSoup(page.content, 'html.parser')
 # scrape the stat data and dump it to a file in the same directory
 stat_table = soup.find('tbody')
 stat_data = stat_table.find_all('tr')
+
 
 print(stat_data, file=open(path, 'w'))
