@@ -7,6 +7,9 @@ from datetime import datetime
 # ask the user which URL they wish to get data from
 url = input('\nEnter the URL from which to scrape the statistical data\n: ')
 
+# get the year from the URL
+year = url.split('/')[-1]
+
 # ask the user to specify a directory for the output data file
 path = input('\nEnter the absolute path where you would like to save the data set\n:')
 if not path:
@@ -20,10 +23,6 @@ page = requests.get(url, headers=headers)
 
 soup = BeautifulSoup(page.content, 'html.parser')
 
-# the following two lines only pull out the header row from the table on the page
-# stat_table = soup.find('thead')
-# stat_data = stat_table.find_all('tr')
-
 # scrape the stat data and dump it to a file in the same directory
 stat_table = soup.find('tbody')
 stat_data = stat_table.find_all('tr')
@@ -31,7 +30,9 @@ stat_data = stat_table.find_all('tr')
 # get the current timestamp and format it as a string to use as the filename
 now = datetime.now()
 timestamp_str = now.strftime("%Y-%m-%d_%H-%M-%S")
-filename = f"stats_{timestamp_str}.csv"
+
+# prepend the year to the filename
+filename = f"{year}_stats_{timestamp_str}.csv"
 
 # write the data to a CSV file
 with open(os.path.join(path, filename), mode='w', newline='') as stats_file:
