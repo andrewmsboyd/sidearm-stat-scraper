@@ -36,7 +36,14 @@ with open(os.path.join(path, 'stats.csv'), mode='w', newline='') as stats_file:
     stats_writer.writerow(header_row)
     
     # write the data rows
+    # for row in stat_data:
+    #     stats_writer.writerow([td.text.strip() for td in row.find_all('td')])
+
     for row in stat_data:
-        stats_writer.writerow([td.text.strip() for td in row.find_all('td')])
+    # Extract the text from each td tag, and exclude "View Bio" if it's present
+        row_data = [td.text.strip() for td in row.find_all('td') if td.text.strip() != 'View Bio']
+    # Write the row data to the CSV file
+        stats_writer.writerow(row_data)
+
     
 print(f'Successfully wrote data to {os.path.join(path, "stats.csv")}')
