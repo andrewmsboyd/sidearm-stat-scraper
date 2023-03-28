@@ -2,6 +2,7 @@ import os
 import csv
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 # ask the user which URL they wish to get data from
 url = input('\nEnter the URL from which to scrape the statistical data\n: ')
@@ -27,8 +28,13 @@ soup = BeautifulSoup(page.content, 'html.parser')
 stat_table = soup.find('tbody')
 stat_data = stat_table.find_all('tr')
 
+# get the current timestamp and format it as a string to use as the filename
+now = datetime.now()
+timestamp_str = now.strftime("%Y-%m-%d_%H-%M-%S")
+filename = f"stats_{timestamp_str}.csv"
+
 # write the data to a CSV file
-with open(os.path.join(path, 'stats.csv'), mode='w', newline='') as stats_file:
+with open(os.path.join(path, filename), mode='w', newline='') as stats_file:
     stats_writer = csv.writer(stats_file)
     
     # write the header row
@@ -36,14 +42,14 @@ with open(os.path.join(path, 'stats.csv'), mode='w', newline='') as stats_file:
     stats_writer.writerow(header_row)
     
     # write the data rows
-    # for row in stat_data:
-    #     stats_writer.writerow([td.text.strip() for td in row.find_all('td')])
-
     for row in stat_data:
-    # Extract the text from each td tag, and exclude "View Bio" if it's present
+        # Extract the player name from the "hide-on-medium-down" class
+        player_name = row.find('a', class_='hide-on-medium-down').text.strip()
+        # Extract the text from each td tag, and exclude "View Bio" if it's present
         row_data = [td.text.strip() for td in row.find_all('td') if td.text.strip() != 'View Bio']
-    # Write the row data to the CSV file
+        # Prepend the player name to the row data
+        row_data.insert(1, player_name)
+        # Write the row data to the CSV file
         stats_writer.writerow(row_data)
-
     
-print(f'Successfully wrote data to {os.path.join(path, "stats.csv")}')
+print(f'Successfully wrote data to {os.path.join(path, filename)}')
